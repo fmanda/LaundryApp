@@ -120,7 +120,8 @@ public class PickProductFragment extends Fragment implements  OrderPickAdapter.I
     }
 
     public void updateQtyProduct(LookupProduct product, double inc, String notes){
-        product.incQty(inc);
+//        product.incQty(inc);
+        product.setQty(inc);
         orders.addItem(product, inc, notes);
     }
 

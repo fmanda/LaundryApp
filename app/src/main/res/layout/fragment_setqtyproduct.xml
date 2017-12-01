@@ -275,6 +275,7 @@
                     android:layout_weight="1"
                     android:background="@color/colorDarkGrey"
                     android:elevation="0dp"
+                    android:tag="."
                     android:text="."
                     android:textAlignment="center"
                     android:textColor="@color/cardview_light_background"

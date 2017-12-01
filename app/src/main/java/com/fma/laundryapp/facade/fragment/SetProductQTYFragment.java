@@ -3,6 +3,7 @@ package com.fma.laundryapp.facade.fragment;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -58,6 +59,7 @@ public class SetProductQTYFragment extends DialogFragment implements View.OnClic
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
             }
         });
+        txtQty.setText("0");
 //        txtQty.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //            @Override
 //            public void onFocusChange(View view, boolean hasFocus) {
@@ -77,6 +79,7 @@ public class SetProductQTYFragment extends DialogFragment implements View.OnClic
         btnYes.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                qty = Double.parseDouble(txtQty.getText().toString());
                 productQTYListener.onProductQTYChanged(modelProduct, qty, txtNotes.getText().toString());
                 dismiss();
             }
@@ -97,6 +100,7 @@ public class SetProductQTYFragment extends DialogFragment implements View.OnClic
 //        });
 
 //        this.setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
+        Button btn_num_decimal = (Button) view.findViewById(R.id.btn_num_decimal);
         Button btn_num_0 = (Button) view.findViewById(R.id.btn_num_0);
         Button btn_num_1 = (Button) view.findViewById(R.id.btn_num_1);
         Button btn_num_2 = (Button) view.findViewById(R.id.btn_num_2);
@@ -107,12 +111,13 @@ public class SetProductQTYFragment extends DialogFragment implements View.OnClic
         Button btn_num_7 = (Button) view.findViewById(R.id.btn_num_7);
         Button btn_num_8 = (Button) view.findViewById(R.id.btn_num_8);
         Button btn_num_9 = (Button) view.findViewById(R.id.btn_num_9);
-        Button btn_num_back = (Button) view.findViewById(R.id.btn_num_back);
+        ImageButton btn_num_back = (ImageButton) view.findViewById(R.id.btn_num_back);
         Button btn_num_clear = (Button) view.findViewById(R.id.btn_num_clear);
         Button btn_num_plus1 = (Button) view.findViewById(R.id.btn_num_plus1);
         Button btn_num_plus05 = (Button) view.findViewById(R.id.btn_num_plus05);
         Button btn_num_plus01 = (Button) view.findViewById(R.id.btn_num_plus01);
 
+        btn_num_decimal.setOnClickListener(this);
         btn_num_0.setOnClickListener(this);
         btn_num_1.setOnClickListener(this);
         btn_num_2.setOnClickListener(this);
@@ -154,12 +159,14 @@ public class SetProductQTYFragment extends DialogFragment implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v.getTag() != null) {
+            if (txtQty.getText().toString().equals("0"))
+                txtQty.setText(null);
             txtQty.append(((TextView) v).getText());
             return;
         }
         switch (v.getId()) {
             case R.id.btn_num_clear: { // handle clear button
-                txtQty.setText(null);
+                txtQty.setText("0");
             }
             break;
             case R.id.btn_num_back: { // handle backspace button
@@ -173,19 +180,22 @@ public class SetProductQTYFragment extends DialogFragment implements View.OnClic
             break;
             case R.id.btn_num_plus1: { // handle clear button
                 Double qty = Double.parseDouble(txtQty.getText().toString())  + 1;
-                txtQty.setText(qty.toString());
+                txtQty.setText(String.format("%.1f", qty));
             }
             break;
             case R.id.btn_num_plus05: { // handle clear button
                 Double qty = Double.parseDouble(txtQty.getText().toString())  + 0.5;
-                txtQty.setText(qty.toString());
-            }
+                txtQty.setText(String.format("%.1f", qty));            }
             break;
             case R.id.btn_num_plus01: { // handle clear button
-                Double qty = Double.parseDouble(txtQty.getText().toString())  + 0.1;
-                txtQty.setText(qty.toString());
+                Double qty = Double.parseDouble(txtQty.getText().toString()) + 0.1000;
+                txtQty.setText(String.format("%.1f", qty));
             }
             break;
+//            case R.id.btn_num_decimal: { // handle clear button
+//                txtQty.append(((TextView) v).getText());;
+//            }
+//            break;
         }
 
     }
