@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/productListImage"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_weight="0"
+        android:elevation="0dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@android:color/darker_gray" />
+
+    <RelativeLayout
+        android:id="@+id/relativelayoutProductList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="2dp"
+        android:layout_weight="0">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutProductList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/btnDecQtyProductList"
+            android:layout_weight="0"
+            android:clickable="true"
+            android:onClick="onProductClick"
+            android:orientation="vertical"
+            android:paddingBottom="2dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp">
+
+            <TextView
+                android:id="@+id/productListName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="top"
+                android:text="Product Name"
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/productListPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center_vertical"
+                android:text="Product Price"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnDecQtyProductList"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="35dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="false"
+            android:layout_centerInParent="false"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:background="@android:drawable/ic_delete"
+            android:backgroundTint="@android:color/darker_gray"
+            android:elegantTextHeight="false"
+            android:elevation="0dp"
+            android:onClick="onProductListDelete"
+            android:textColorLink="@color/colorAccent"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
+</LinearLayout>
