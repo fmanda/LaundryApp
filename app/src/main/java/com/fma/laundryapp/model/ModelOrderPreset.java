@@ -42,15 +42,15 @@ public class ModelOrderPreset extends BaseModel implements Serializable{
     }
 
     public static void initMetaData(SQLiteDatabase db) {
-        ModelOrderPreset modelOrderPreset = new ModelOrderPreset();
-        modelOrderPreset.setDefault_customer_id(0);
-        modelOrderPreset.setName("DINE IN");
-        modelOrderPreset.saveToDB(db);
-
-        modelOrderPreset.setId(0);
-        modelOrderPreset.setDefault_customer_id(0);
-        modelOrderPreset.setName("TAKE HOME");
-        modelOrderPreset.saveToDB(db);
+//        ModelOrderPreset modelOrderPreset = new ModelOrderPreset();
+//        modelOrderPreset.setDefault_customer_id(0);
+//        modelOrderPreset.setName("DINE IN");
+//        modelOrderPreset.saveToDB(db);
+//
+//        modelOrderPreset.setId(0);
+//        modelOrderPreset.setDefault_customer_id(0);
+//        modelOrderPreset.setName("TAKE HOME");
+//        modelOrderPreset.saveToDB(db);
 
 //        new ModelOrderPreset(2000).saveToDB(db);
 //        new ModelOrderPreset(5000).saveToDB(db);

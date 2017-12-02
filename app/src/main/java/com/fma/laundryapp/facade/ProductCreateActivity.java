@@ -46,7 +46,7 @@ public class ProductCreateActivity extends AppCompatActivity {
     private EditText txtProductName;
 //    private EditText txtBarcode;
     private EditText txtSatuan;
-//    private EditText txtCategory;
+    private EditText txtCategory;
     private EditText txtPrice;
     private EditText txtPPN;
     private static final int SELECT_IMAGE = 0;
@@ -92,7 +92,7 @@ public class ProductCreateActivity extends AppCompatActivity {
             prod.setName(txtProductName.getText().toString());
 //            prod.setBarcode(txtBarcode.getText().toString());
             prod.setUom(txtSatuan.getText().toString());
-//            prod.setCategory(txtCategory.getText().toString());
+            prod.setCategory(txtCategory.getText().toString());
             prod.setPrice(Double.parseDouble(txtPrice.getText().toString()));
             prod.setTax(Integer.parseInt(txtPPN.getText().toString()));
             prod.setAllow_decimal(0);
@@ -189,7 +189,7 @@ public class ProductCreateActivity extends AppCompatActivity {
         txtProductName = (EditText) findViewById(R.id.txtProductName);
 //        txtBarcode = (EditText) findViewById(R.id.txtBarcode);
         txtSatuan = (EditText) findViewById(R.id.txtSatuan);
-//        txtCategory = (EditText) findViewById(R.id.txtCategory);
+        txtCategory = (EditText) findViewById(R.id.txtCategory);
         txtPrice = (EditText) findViewById(R.id.txtPrice);
         txtPPN = (EditText) findViewById(R.id.txtPPN);
         chkAllowDecimal = (CheckBox) findViewById(R.id.chkAllowDecimal);
@@ -229,7 +229,7 @@ public class ProductCreateActivity extends AppCompatActivity {
             txtProductName.setText(prod.getName());
 //            txtBarcode.setText(prod.getBarcode());
             txtSatuan.setText(prod.getUom());
-//            txtCategory.setText(prod.getCategory());
+            txtCategory.setText(prod.getCategory());
             txtPrice.setText(String.valueOf(prod.getPrice()));
             txtPPN.setText(String.valueOf(prod.getTax()));
             chkAllowDecimal.setChecked(prod.getAllow_decimal() == 1);

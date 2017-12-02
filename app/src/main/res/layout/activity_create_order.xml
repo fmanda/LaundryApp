@@ -96,7 +96,7 @@
                 android:layout_toLeftOf="@+id/txtSummaryProductList"
                 android:layout_weight="1"
                 android:background="@color/colorSecondary"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:tabIndicatorColor="@color/colorPrimary"
                 app:tabMode="scrollable"
                 app:tabSelectedTextColor="@color/colorWhite"

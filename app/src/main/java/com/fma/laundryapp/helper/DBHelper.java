@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.fma.laundryapp.model.ModelBalance;
 import com.fma.laundryapp.model.ModelCustomer;
 import com.fma.laundryapp.model.ModelModifier;
 import com.fma.laundryapp.model.ModelMoneyPreset;
@@ -58,11 +59,13 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(new ModelMoneyPreset(0).generateMetaData());
         db.execSQL(new ModelOrderPreset().generateMetaData());
         db.execSQL(new ModelOrderCategory().generateMetaData());
+        db.execSQL(new ModelBalance().generateMetaData());
 
         //init
         ModelSetting.initMetaData(db);
         ModelMoneyPreset.initMetaData(db);
-        ModelOrderPreset.initMetaData(db);
+
+//        ModelOrderPreset.initMetaData(db);
     }
 
     @Override

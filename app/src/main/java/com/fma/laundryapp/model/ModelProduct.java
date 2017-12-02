@@ -138,8 +138,8 @@ public class ModelProduct extends BaseModel implements Serializable{
         try {
             super.saveToDB(db ,true);
 
-            ModelModifier tmp = new ModelModifier();
-            db.execSQL(tmp.generateSQLDelete("where product_id = " + String.valueOf(getId())));
+//            ModelModifier tmp = new ModelModifier();
+//            db.execSQL(tmp.generateSQLDelete("where product_id = " + String.valueOf(getId())));
 
 //            for (ModelModifier modifier : modifiers) {
 //                modifier.setId(0); //force insert
@@ -202,5 +202,66 @@ public class ModelProduct extends BaseModel implements Serializable{
 
     public void setAllow_decimal(Integer allow_decimal) {
         this.allow_decimal = allow_decimal;
+    }
+
+    public static void generateSampleData(SQLiteDatabase db) {
+        ModelProduct modelProduct = new ModelProduct();
+
+        modelProduct.setId(0);
+        modelProduct.setName("Cuci Komplit Reguler");
+        modelProduct.setSku("P001");
+        modelProduct.setCategory("Paket");
+        modelProduct.setPrice(4000.0);
+        modelProduct.setAllow_decimal(1);
+        modelProduct.setUom("kg");
+        modelProduct.saveToDB(db);
+
+        modelProduct.setName("Cuci Komplit Kilat");
+        modelProduct.setSku("P002");
+        modelProduct.setCategory("Paket");
+        modelProduct.setPrice(7000.0);
+        modelProduct.setAllow_decimal(1);
+        modelProduct.setUom("kg");
+        modelProduct.saveToDB(db);
+
+        modelProduct.setName("Cuci Kering");
+        modelProduct.setSku("P003");
+        modelProduct.setCategory("Paket");
+        modelProduct.setPrice(3000.0);
+        modelProduct.setAllow_decimal(1);
+        modelProduct.setUom("kg");
+        modelProduct.saveToDB(db);
+
+        modelProduct.setName("Seterika");
+        modelProduct.setSku("P004");
+        modelProduct.setCategory("Paket");
+        modelProduct.setPrice(3000.0);
+        modelProduct.setAllow_decimal(1);
+        modelProduct.setUom("kg");
+        modelProduct.saveToDB(db);
+
+        modelProduct.setName("Bed Cover");
+        modelProduct.setSku("S001");
+        modelProduct.setCategory("Satuan");
+        modelProduct.setPrice(10000.0);
+        modelProduct.setAllow_decimal(0);
+        modelProduct.setUom("pcs");
+        modelProduct.saveToDB(db);
+
+        modelProduct.setName("Karpet");
+        modelProduct.setSku("S002");
+        modelProduct.setCategory("Satuan");
+        modelProduct.setPrice(10000.0);
+        modelProduct.setAllow_decimal(0);
+        modelProduct.setUom("pcs");
+        modelProduct.saveToDB(db);
+
+        modelProduct.setName("Sepatu");
+        modelProduct.setSku("S003");
+        modelProduct.setCategory("Satuan");
+        modelProduct.setPrice(5000.0);
+        modelProduct.setAllow_decimal(0);
+        modelProduct.setUom("set");
+        modelProduct.saveToDB(db);
     }
 }

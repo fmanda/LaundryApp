@@ -24,6 +24,21 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="0">
+
+            <EditText
+                android:id="@+id/txtSKU"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="Kode Product / Jasa"
+                android:textSize="14sp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="0"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp">
@@ -33,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
-                android:hint="Nama Product"
+                android:hint="Nama Product / Jasa"
                 android:textSize="14sp" />
         </android.support.design.widget.TextInputLayout>
 
@@ -44,11 +59,12 @@
             android:layout_weight="0">
 
             <EditText
-                android:id="@+id/txtSKU"
+                android:id="@+id/txtCategory"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:hint="SKU / Kode Product"
-                android:textSize="14sp" />
+                android:hint="Kategori Product / Jasa"
+                android:textSize="14sp"
+                android:visibility="visible" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout

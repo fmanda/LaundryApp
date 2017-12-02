@@ -16,6 +16,7 @@ import com.fma.laundryapp.controller.ControllerSetting;
 import com.fma.laundryapp.facade.fragment.SelectPrinterFragment;
 import com.fma.laundryapp.helper.DBHelper;
 import com.fma.laundryapp.model.ModelPrinter;
+import com.fma.laundryapp.model.ModelProduct;
 import com.fma.laundryapp.model.ModelSetting;
 
 import java.util.List;
@@ -158,7 +159,7 @@ public class SettingActivity extends BaseActivity implements SelectPrinterFragme
 
     private void dummyDB(){
         DBHelper db = DBHelper.getInstance(this);
-//        db.dummyProduct(db.getWritableDatabase());
+        ModelProduct.generateSampleData(db.getWritableDatabase());
         loadData();
         Toast.makeText(this, "Dummy Data Pump", Toast.LENGTH_SHORT).show();
     }
