@@ -1,4 +1,5 @@
 package com.fma.laundryapp.facade;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.fma.laundryapp.R;
@@ -16,7 +17,8 @@ public class MainActivity extends BaseActivity {
         getLayoutInflater().inflate(R.layout.activity_main, this.mainframe);
         ControllerSetting controllerSetting = new ControllerSetting(this);
 
-
+//        Intent intent = new Intent(this, OrderCreateActivity.class);
+//        startActivity(intent);
 //
     }
 

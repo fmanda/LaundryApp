@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.fma.laundryapp.helper.DBHelper;
 import com.fma.laundryapp.model.ModelCustomer;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,5 +57,35 @@ public class ControllerCustomer {
             customers.add(customer);
         }
         return customers;
+    }
+
+    public String generateNewNumber(){
+        DBHelper db = DBHelper.getInstance(context);
+        SQLiteDatabase rdb = db.getReadableDatabase();
+        String newNumber = "";
+
+        Calendar c = Calendar.getInstance();   // this takes current date
+        c.set(Calendar.DAY_OF_MONTH, 1);
+        Date d = c.getTime();
+
+        int icustno = 0;
+
+        try {
+            String sql = "select max(code) from customer"; // where orderdate >= " + String.valueOf(d.getTime());
+            Cursor cursor = rdb.rawQuery(sql, null);
+            if (cursor.moveToNext()) {
+                String str = cursor.getString(0);
+                //str = str.replace(newNumber,"");
+//                str = str.substring(str.length()-4);
+                if (!str.equals("")) icustno = Integer.parseInt(str);
+            }
+        }
+        catch(Exception e){
+        }
+
+        icustno++;
+        newNumber += String.format("%05d", icustno);
+        return newNumber;
+
     }
 }

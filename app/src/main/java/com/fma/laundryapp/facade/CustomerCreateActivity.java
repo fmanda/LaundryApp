@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.fma.laundryapp.R;
+import com.fma.laundryapp.controller.ControllerCustomer;
 import com.fma.laundryapp.helper.DBHelper;
 import com.fma.laundryapp.model.ModelCustomer;
 
@@ -31,8 +32,9 @@ public class CustomerCreateActivity extends AppCompatActivity {
     private ModelCustomer customer;
     private EditText txtCustCode;
     private EditText txtCustName;
-    private EditText txtCustCategory;
+    private EditText txtCustTelp;
     private EditText txtCustAddress;
+    ControllerCustomer controllerCustomer;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,7 +68,7 @@ public class CustomerCreateActivity extends AppCompatActivity {
         try {
             customer.setCode(txtCustCode.getText().toString());
             customer.setName(txtCustName.getText().toString());
-            customer.setCategory(txtCustCategory.getText().toString());
+            customer.setPhone_number(txtCustTelp.getText().toString());
             customer.setAddress(txtCustAddress.getText().toString());
         }catch (Exception e){
             Log.d("exception", e.getMessage());
@@ -146,17 +148,22 @@ public class CustomerCreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_customer);
 
+        controllerCustomer = new ControllerCustomer(this);
         txtCustName = (EditText) findViewById(R.id.txtCustName);
         txtCustCode = (EditText) findViewById(R.id.txtCustCode);
-        txtCustCategory = (EditText) findViewById(R.id.txtCustCategory);
+        txtCustTelp = (EditText) findViewById(R.id.txtCustTelp);
         txtCustAddress = (EditText) findViewById(R.id.txtCustAddress);
+
+        txtCustCode.setText(controllerCustomer.generateNewNumber());
+        txtCustName.requestFocus();
+//        txtCustName.performClick();
 
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
 
             getSupportActionBar().setDisplayShowCustomEnabled(true);
-            getSupportActionBar().setTitle("Buat Customer Baru");
+            getSupportActionBar().setTitle("Buat Pelanggan Baru");
         }
 
         loadData();
@@ -178,7 +185,7 @@ public class CustomerCreateActivity extends AppCompatActivity {
         }else {
             txtCustCode.setText(customer.getCode());
             txtCustName.setText(customer.getName());
-            txtCustCategory.setText(customer.getCategory());
+            txtCustTelp.setText(customer.getPhone_number());
             txtCustAddress.setText(customer.getAddress());
 
         }

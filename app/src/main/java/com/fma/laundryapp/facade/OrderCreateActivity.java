@@ -195,37 +195,37 @@ public class OrderCreateActivity extends AppCompatActivity implements CategoryLi
 
     private void generatePresetTab() {
 
-        if (tabsPreset==null) return;
-        tabsPreset.setPadding(0,0,0,0);
-
-        tabsPreset.removeAllTabs();
-
-        ControllerSetting controllerSetting = new ControllerSetting(this);
-        List<ModelOrderPreset> modelOrderPresets = controllerSetting.getOrderPreset();
-
-        for (ModelOrderPreset modelOrderPreset : modelOrderPresets) {
-            TabLayout.Tab tab = tabsPreset.newTab();
-            tab.setText(modelOrderPreset.getName());
-            tab.setTag(modelOrderPreset);
-            tabsPreset.addTab(tab);
-        }
-
-        if (tabsPreset.getTabCount() == 0) {
-            tabsPreset.setVisibility(View.GONE);
-        }else{
-            setOrderPreset();
-        }
-
-        tabsPreset.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                setOrderPreset();
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
-        });
+//        if (tabsPreset==null) return;
+//        tabsPreset.setPadding(0,0,0,0);
+//
+//        tabsPreset.removeAllTabs();
+//
+//        ControllerSetting controllerSetting = new ControllerSetting(this);
+//        List<ModelOrderPreset> modelOrderPresets = controllerSetting.getOrderPreset();
+//
+//        for (ModelOrderPreset modelOrderPreset : modelOrderPresets) {
+//            TabLayout.Tab tab = tabsPreset.newTab();
+//            tab.setText(modelOrderPreset.getName());
+//            tab.setTag(modelOrderPreset);
+//            tabsPreset.addTab(tab);
+//        }
+//
+//        if (tabsPreset.getTabCount() == 0) {
+//            tabsPreset.setVisibility(View.GONE);
+//        }else{
+//            setOrderPreset();
+//        }
+//
+//        tabsPreset.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                setOrderPreset();
+//            }
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {}
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {}
+//        });
 
 
     }

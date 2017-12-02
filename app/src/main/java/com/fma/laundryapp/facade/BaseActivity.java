@@ -116,7 +116,8 @@ public class BaseActivity extends AppCompatActivity  implements NavigationView.O
 
         if (id == R.id.nav_home) {
             startActivity(new Intent(this, MainActivity.class));
-        } else if (id == R.id.nav_order) {
+        } else
+        if (id == R.id.nav_order) {
             startActivity(new Intent(this, OrderActivity.class));
         } else if (id == R.id.nav_products) {
             startActivity(new Intent(this, ProductActivity.class));

@@ -51,6 +51,7 @@ public class OrderPickAdapter extends RecyclerView.Adapter<OrderPickAdapter.View
 
         holder.productListName.setText(product.getName());
         holder.productListPrice.setText(CurrencyHelper.format(product.getPrice(), Boolean.TRUE));
+        holder.productListPrice.append("/" + product.getUom());
 
         Double qty = product.getQty();
 
@@ -64,8 +65,8 @@ public class OrderPickAdapter extends RecyclerView.Adapter<OrderPickAdapter.View
 //            holder.cvProduct.setCardBackgroundColor(Color.RED );
 //            holder.cvProduct.setCardBackgroundColor( ContextCompat.getColor(this.context,
 //                    R.color.colorLightOrange ));
-            holder.cvProduct.setCardBackgroundColor( ContextCompat.getColor(this.context,
-                    R.color.colorRowHighlight ));
+//            holder.cvProduct.setCardBackgroundColor( ContextCompat.getColor(this.context,
+//                    R.color.colorSecondary ));
         }else{
             holder.cvProduct.setCardBackgroundColor(Color.WHITE );
 

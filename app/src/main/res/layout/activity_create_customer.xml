@@ -37,6 +37,7 @@
                 android:id="@+id/txtCustCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:hint="Kode Customer" />
         </android.support.design.widget.TextInputLayout>
 
@@ -60,10 +61,11 @@
             android:layout_weight="5">
 
             <EditText
-                android:id="@+id/txtCustCategory"
+                android:id="@+id/txtCustTelp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Kategori Customer" />
+                android:hint="No. Telp"
+                android:phoneNumber="true" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -77,8 +79,7 @@
                 android:id="@+id/txtCustAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Alamat Customer"
-                android:numeric="decimal" />
+                android:hint="Alamat Customer" />
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>

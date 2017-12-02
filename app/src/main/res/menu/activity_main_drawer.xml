@@ -5,7 +5,8 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_chart"
-            android:title="Dashboard" />
+            android:title="Dashboard"
+            android:visible="false" />
         <item
             android:id="@+id/nav_order"
             android:icon="@drawable/ic_menu_cart"
@@ -21,7 +22,8 @@
         <item
             android:id="@+id/nav_sync"
             android:icon="@drawable/ic_menu_cloud_sync"
-            android:title="Synchronize" />
+            android:title="Synchronize"
+            android:visible="false" />
     </group>
 
 
@@ -40,15 +42,17 @@
             <item
                 android:id="@+id/nav_order_preset"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="Order Preset" />
+                android:title="Order Preset"
+                android:visible="false" />
             <item
                 android:id="@+id/nav_local_setting"
                 android:icon="@drawable/ic_menu_database"
                 android:title="Local Settings" />
-            <!--<item-->
-            <!--android:id="@+id/nav_server_setting"-->
-            <!--android:icon="@drawable/ic_menu_database"-->
-            <!--android:title="Server Settings" />-->
+            <item
+                android:id="@+id/nav_server_setting"
+                android:icon="@drawable/ic_menu_database"
+                android:title="Server Settings"
+                android:visible="false" />
 
         </menu>
     </item>
