@@ -84,6 +84,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(new ModelMoneyPreset(0).generateDropMetaData());
         db.execSQL(new ModelOrderPreset().generateDropMetaData());
         db.execSQL(new ModelOrderCategory().generateDropMetaData());
+        db.execSQL(new ModelBalance().generateDropMetaData());
     }
 
     public void resetDatabase(SQLiteDatabase db){

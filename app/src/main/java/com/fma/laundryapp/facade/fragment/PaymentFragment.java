@@ -123,6 +123,7 @@ public class PaymentFragment extends Fragment{
         modelOrder.saveToDBAll(trans);
 
         OrderPrinterHelper printer = new OrderPrinterHelper(getActivity());
+//        OrderPrinterHelper printer = OrderPrinterHelper.getInstance(getActivity());
         printer.PrintOrderPayment(modelOrder);
 
         startActivity(new Intent(getActivity(), OrderActivity.class));

@@ -27,23 +27,20 @@ public class PrinterHelper {
     BluetoothAdapter bluetoothAdapter;
     BluetoothDevice bluetoothDevice;
     BluetoothSocket bluetoothSocket;
-    OutputStream outputStream;
-    InputStream inputStream;
-    Thread workerThread;
-    byte[] readBuffer;
-    int readBufferPosition;
-    volatile boolean stopWorker;
+//    OutputStream outputStream;
+//    InputStream inputStream;
+//    Thread workerThread;
+//    byte[] readBuffer;
+//    int readBufferPosition;
+//    volatile boolean stopWorker;
     String value = "";
     Context context;
     String printerName = "EP5802AI";
     List<ModelSetting> settings;
     ControllerSetting setting;
+    BluetoothPrinter mPrinter;
 
     int printerCharWidth = 32;
-
-    public void setPrinterName(String printerName){
-        this.printerName = printerName;
-    }
 
     public PrinterHelper(Context context){
         this.context = context;
@@ -56,12 +53,21 @@ public class PrinterHelper {
         }
     }
 
-    public boolean ConnectPrinter(){
+
+    public void setPrinterName(String printerName){
+        this.printerName = printerName;
+    }
+
+
+
+    public boolean ConnectDevice(){
         if (bluetoothAdapter==null) bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         try {
+
             if(!bluetoothAdapter.isEnabled()){
                 return false;
             }
+
             Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
             if( (pairedDevices.size() > 0) && (!this.printerName.equals(""))) {
                 for(BluetoothDevice device : pairedDevices){
@@ -71,14 +77,6 @@ public class PrinterHelper {
                     }
                 }
                 if (bluetoothDevice == null) return false;
-                UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"); //Standard SerialPortService ID
-                Method m = bluetoothDevice.getClass().getMethod("createRfcommSocket", new Class[]{int.class});
-                bluetoothSocket = (BluetoothSocket) m.invoke(bluetoothDevice, 1);
-                bluetoothAdapter.cancelDiscovery();
-                bluetoothSocket.connect();
-                outputStream = bluetoothSocket.getOutputStream();
-                inputStream = bluetoothSocket.getInputStream();
-                beginListenForData();
             }
             else{
                 value+="No Printer Found";
@@ -90,88 +88,9 @@ public class PrinterHelper {
             Toast.makeText(context, value, Toast.LENGTH_LONG).show();
             return false;
         }
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return true;
     }
 
-    private void beginListenForData() {
-        try {
-            final Handler handler = new Handler();
-            // this is the ASCII code for a newline character
-            final byte delimiter = 10;
-            stopWorker = false;
-            readBufferPosition = 0;
-            readBuffer = new byte[1024];
-
-            workerThread = new Thread(new Runnable() {
-                public void run() {
-                while (!Thread.currentThread().isInterrupted() && !stopWorker) {
-                    try {
-                        int bytesAvailable = inputStream.available();
-                        if (bytesAvailable > 0) {
-                            byte[] packetBytes = new byte[bytesAvailable];
-                            inputStream.read(packetBytes);
-                            for (int i = 0; i < bytesAvailable; i++) {
-                                byte b = packetBytes[i];
-                                if (b == delimiter) {
-                                    byte[] encodedBytes = new byte[readBufferPosition];
-                                    System.arraycopy(
-                                            readBuffer, 0,
-                                            encodedBytes, 0,
-                                            encodedBytes.length
-                                    );
-                                    // specify US-ASCII encoding
-                                    final String data = new String(encodedBytes, "US-ASCII");
-                                    readBufferPosition = 0;
-                                    // tell the user data were sent to bluetooth printer device
-                                    handler.post(new Runnable() {
-                                        public void run() {
-                                            Log.d("e", data);
-                                        }
-                                    });
-
-                                } else {
-                                    readBuffer[readBufferPosition++] = b;
-                                }
-                            }
-                        }
-                    } catch (IOException ex) {
-                        stopWorker = true;
-                    }
-                }
-                }
-            });
-            workerThread.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void TestPrintData(byte [] paramArrayOfByte){
-        if (paramArrayOfByte == null) return;
-
-        if (!ConnectPrinter()) return;
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if (outputStream == null) return;
-
-        try{
-            outputStream.write(paramArrayOfByte);
-            outputStream.close();
-            bluetoothSocket.close();
-        }
-        catch (IOException ex){
-            ex.printStackTrace();
-        }
-    }
 
     public String getDoubleSeparator(){
         String str = "";
@@ -189,44 +108,48 @@ public class PrinterHelper {
         return str;
     }
 
-    public void ClosePrinter() {
-        try {
-            outputStream.close();
-            bluetoothSocket.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
+//    public void ClosePrinter() {
+//        try {
+//            outputStream.close();
+//            bluetoothSocket.close();
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 
     public void PrintLine(String lineStr, Boolean withLineBreak){
         if (withLineBreak) lineStr += "\n";
-        try {
-            outputStream.write(lineStr.getBytes());
-        } catch (IOException e) {
+        mPrinter.printText(lineStr);
+//        try {
+//            outputStream.write(lineStr.getBytes());
+//        } catch (IOException e) {
 //            e.printStackTrace();
-        }
+//        }
     }
 
     public void PrintLine(String lineStr){
         PrintLine(lineStr, Boolean.TRUE);
     }
 
-    public String alignLeft() {
-        final byte[] AlignLeft = {27, 97,48};
-        String s = new String(AlignLeft);
-        return s;
+    public void alignLeft() {
+        mPrinter.setAlign(BluetoothPrinter.ALIGN_LEFT);
+//        final byte[] AlignLeft = {27, 97,48};
+//        String s = new String(AlignLeft);
+//        return s;
     }
 
-    public String alignCenter() {
-        final byte[] AlignCenter = {27, 97,49};
-        String s = new String(AlignCenter);
-        return s;
+    public void alignCenter() {
+        mPrinter.setAlign(BluetoothPrinter.ALIGN_CENTER);
+//        final byte[] AlignCenter = {27, 97,49};
+//        String s = new String(AlignCenter);
+//        return s;
     }
 
-    public String alignRight() {
-        final byte[] AlignRight = {27, 97,50};
-        String s = new String(AlignRight);
-        return s;
+    public void alignRight() {
+        mPrinter.setAlign(BluetoothPrinter.ALIGN_RIGHT);
+//        final byte[] AlignRight = {27, 97,50};
+//        String s = new String(AlignRight);
+//        return s;
     }
 
     public String mergeLeftRight(String sLeft, String sRight){
@@ -242,6 +165,7 @@ public class PrinterHelper {
         sLeft += sRight;
         return sLeft;
     }
+
 
 }
 

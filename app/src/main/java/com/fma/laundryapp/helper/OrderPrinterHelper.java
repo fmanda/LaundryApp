@@ -1,6 +1,7 @@
 package com.fma.laundryapp.helper;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.fma.laundryapp.controller.ControllerCustomer;
 import com.fma.laundryapp.controller.ControllerProduct;
@@ -25,6 +26,9 @@ public class OrderPrinterHelper extends PrinterHelper {
     Boolean printCustomerInfo;
     Boolean singleLineProduct;
     ControllerCustomer controllerCustomer;
+    ControllerProduct controllerproduct;
+    private static OrderPrinterHelper mInstance;
+    private ModelOrder modelOrder;
 
     public OrderPrinterHelper(Context context) {
         super(context);
@@ -36,26 +40,52 @@ public class OrderPrinterHelper extends PrinterHelper {
         printToKitchen = Boolean.parseBoolean(setting.getSettingStr(settings,"print_to_kitchen"));
         printCustomerInfo = Boolean.parseBoolean(setting.getSettingStr(settings,"print_customer_info"));
         singleLineProduct = Boolean.parseBoolean(setting.getSettingStr(settings,"single_line_product"));
+        controllerproduct = new ControllerProduct(context);
 
     }
+
+    public static synchronized OrderPrinterHelper getInstance(Context context) {
+
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (mInstance == null) {
+            mInstance = new OrderPrinterHelper(context.getApplicationContext());
+        }
+        return mInstance;
+    }
+
 
     public void PrintOrderPayment(ModelOrder modelOrder){
         if (printToCashier == Boolean.FALSE) return;
         setPrinterName(cashierPrinter);
+        if (!ConnectDevice()) return;
+        this.mPrinter = new BluetoothPrinter(bluetoothDevice);
 
-        if (!ConnectPrinter()) return;
+        this.modelOrder = modelOrder;
+        this.mPrinter.connectPrinter(new BluetoothPrinter.PrinterConnectListener() {
+             @Override
+             public void onConnected() {
+                DoPrintOrderPayment();
+                mPrinter.finish();
+             }
 
+             @Override
+             public void onFailed() {
+                 Toast.makeText(context, "Fail to Print", Toast.LENGTH_SHORT).show();
+             }
+         });
 
-        ControllerProduct controllerproduct = new ControllerProduct(context);
-        PrintLine(alignCenter(), Boolean.FALSE);
+    }
 
+    private void DoPrintOrderPayment(){
+        alignCenter();
         //header
         PrintLine(setting.getSettingStr(settings, "company_name"));
         PrintLine(setting.getSettingStr(settings, "company_address"));
         PrintLine(setting.getSettingStr(settings, "company_phone"));
-
         //sub header
-        PrintLine(alignLeft(), Boolean.TRUE);
+        alignLeft();
         PrintLine("NO   : " + modelOrder.getOrderno() );
         if (printCustomerInfo){
             ModelCustomer modelCustomer = controllerCustomer.getCustomer(modelOrder.getCustomer_id());
@@ -67,7 +97,7 @@ public class OrderPrinterHelper extends PrinterHelper {
         PrintLine(getDoubleSeparator());
 
         //detail order
-        PrintLine(alignLeft(), Boolean.FALSE);
+        alignLeft();
         for (ModelOrderItem item : modelOrder.getItems()) {
             ModelProduct product = item.getProduct();
             if (product == null) product = controllerproduct.retrieveProduct(item.getProduct_id());
@@ -80,9 +110,9 @@ public class OrderPrinterHelper extends PrinterHelper {
             if (singleLineProduct){
                 PrintLine(mergeLeftRight(description, subtotal));
             }else {
-                PrintLine(alignLeft(), Boolean.FALSE);
+                alignLeft();
                 PrintLine(description);
-                PrintLine(alignRight(), Boolean.FALSE);
+                alignRight();
                 PrintLine(subtotal);
 
             }
@@ -93,14 +123,14 @@ public class OrderPrinterHelper extends PrinterHelper {
         PrintLine(mergeLeftRight("TOTAL", CurrencyHelper.format(modelOrder.getAmount(),Boolean.FALSE) ));
         PrintLine(mergeLeftRight("BAYAR", CurrencyHelper.format(modelOrder.getTotalCustPayment(),Boolean.FALSE) ));
         PrintLine(mergeLeftRight("KEMBALI", CurrencyHelper.format(modelOrder.getChange() ) ));
-
         PrintLine("\n");
-        PrintLine(alignCenter(), Boolean.FALSE);
+        alignCenter();
         PrintLine(setting.getSettingStr(settings, "print_footer"));
         PrintLine("\n");
 
-        ClosePrinter();
+//        ClosePrinter();
     }
+
 
 
 }
