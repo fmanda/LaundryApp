@@ -17,8 +17,8 @@ public class MainActivity extends BaseActivity {
         getLayoutInflater().inflate(R.layout.activity_main, this.mainframe);
         ControllerSetting controllerSetting = new ControllerSetting(this);
 
-//        Intent intent = new Intent(this, OrderCreateActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, OrderCreateActivity.class);
+        startActivity(intent);
 //
     }
 

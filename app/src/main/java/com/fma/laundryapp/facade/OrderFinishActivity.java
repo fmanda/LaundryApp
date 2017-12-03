@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.fma.laundryapp.R;
+import com.fma.laundryapp.facade.fragment.CreateCustomerFragment;
 import com.fma.laundryapp.facade.fragment.OrderFinishFragment;
 import com.fma.laundryapp.facade.fragment.PickCustomerFragment;
 import com.fma.laundryapp.model.ModelCustomer;
@@ -83,8 +84,24 @@ public class OrderFinishActivity extends AppCompatActivity {
             public void OnSelectCustomer(ModelCustomer modelCustomer) {
                 setCustomer(modelCustomer);
             }
+
+            @Override
+            public void OnClickCreateCustomer() {
+                showDialogCreateCustomer();
+            }
         });
         pickCustomerFragment.show(fm, "Pilih Customer");
     }
 
+    public void showDialogCreateCustomer(){
+        FragmentManager fm = getFragmentManager();
+        CreateCustomerFragment createCustomerFragment = new CreateCustomerFragment();
+        createCustomerFragment.SetOnCreatedListener(new CreateCustomerFragment.CustomerCreateListener() {
+            @Override
+            public void OnCreatedCustomer(ModelCustomer modelCustomer) {
+                setCustomer(modelCustomer);
+            }
+        });
+        createCustomerFragment.show(fm, "Buat Customer Baru");
+    }
 }

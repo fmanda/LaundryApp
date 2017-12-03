@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context="com.fma.laundryapp.facade.OrderFinishActivity">
 
@@ -13,13 +13,6 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvCustomers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:visibility="visible" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,27 +21,36 @@
             android:padding="3dp">
 
             <Button
-                android:id="@+id/btnYes"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="3dp"
-                android:layout_weight="5"
-                android:background="@android:color/holo_green_dark"
-                android:text="OK"
-                android:visibility="gone" />
-
-            <Button
                 android:id="@+id/btnCancel"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="3dp"
-                android:layout_weight="0"
-                android:background="@color/colorSecondary"
-                android:text="cancel" />
+                android:layout_weight="1"
+                android:background="@color/colorLightRed"
+                android:text="Batal"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/btnNewCustomer"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="Buat Baru"
+                android:visibility="visible" />
 
         </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvCustomers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:minWidth="300dp"
+            android:visibility="visible" />
 
     </LinearLayout>
 

@@ -205,6 +205,11 @@ public class PresetCreateActivity extends AppCompatActivity {
             public void OnSelectCustomer(ModelCustomer modelCustomer) {
                 setCustomer(modelCustomer);
             }
+
+            @Override
+            public void OnClickCreateCustomer() {
+
+            }
         });
         pickCustomerFragment.show(fm, "Pilih Customer");
     }

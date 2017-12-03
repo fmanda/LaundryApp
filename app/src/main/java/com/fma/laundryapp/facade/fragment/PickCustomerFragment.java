@@ -2,6 +2,9 @@ package com.fma.laundryapp.facade.fragment;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.fma.laundryapp.R;
 import com.fma.laundryapp.adapter.CustomerListAdapter;
 import com.fma.laundryapp.controller.ControllerCustomer;
+import com.fma.laundryapp.model.LookupProduct;
 import com.fma.laundryapp.model.ModelCustomer;
 
 import java.util.List;
@@ -45,11 +51,21 @@ public class PickCustomerFragment extends DialogFragment implements CustomerList
         customerListAdapter.setClickListener(this);
 
         Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        Button btnNewCustomer = (Button) view.findViewById(R.id.btnNewCustomer);
 
         btnCancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 dismiss();
+            }
+        });
+
+        btnNewCustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+                customerSelectListener.OnClickCreateCustomer();
+
             }
         });
 
@@ -59,6 +75,10 @@ public class PickCustomerFragment extends DialogFragment implements CustomerList
 //        view.setLayoutParams(layoutParams);
 
         return view;
+    }
+
+    private void showCreateDialog(View view) {
+        Toast.makeText(view.getContext(), "test", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -73,11 +93,14 @@ public class PickCustomerFragment extends DialogFragment implements CustomerList
 
     public interface CustomerSelectListener{
         void OnSelectCustomer(ModelCustomer modelCustomer);
+        void OnClickCreateCustomer();
     }
 
     public void SetCustomerSelectListener(CustomerSelectListener customerSelectListener){
         this.customerSelectListener = customerSelectListener;
     }
+
+
 
     @Override
     public void onItemClick(View view, int position) {

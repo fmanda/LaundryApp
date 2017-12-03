@@ -113,9 +113,7 @@ public class PickProductFragment extends Fragment implements  OrderPickAdapter.I
                 refreshAdapter();
             }
         });
-
-
-        setProductQTYFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
+//        setProductQTYFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
         setProductQTYFragment.show(fm, "Piih QTY");
     }
 

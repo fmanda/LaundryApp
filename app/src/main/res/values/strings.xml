@@ -21,4 +21,6 @@
         completions."
     </string>
     <string name="caption_check_allow_decimal">Satuan Desimal</string>
+    <string name="caption_cancel">CANCEL</string>
+    <string name="caption_ok">OK</string>
 </resources>

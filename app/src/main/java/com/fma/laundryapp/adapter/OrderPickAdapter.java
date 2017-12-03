@@ -65,8 +65,8 @@ public class OrderPickAdapter extends RecyclerView.Adapter<OrderPickAdapter.View
 //            holder.cvProduct.setCardBackgroundColor(Color.RED );
 //            holder.cvProduct.setCardBackgroundColor( ContextCompat.getColor(this.context,
 //                    R.color.colorLightOrange ));
-//            holder.cvProduct.setCardBackgroundColor( ContextCompat.getColor(this.context,
-//                    R.color.colorSecondary ));
+            holder.lhProductList.setBackgroundColor( ContextCompat.getColor(this.context,
+                    R.color.colorLightOrange ));
         }else{
             holder.cvProduct.setCardBackgroundColor(Color.WHITE );
 
@@ -80,6 +80,8 @@ public class OrderPickAdapter extends RecyclerView.Adapter<OrderPickAdapter.View
             holder.productListQty.setVisibility(View.GONE);
             holder.productListImage.setVisibility(View.VISIBLE);
 //            holder.btnDecQtyProduct.setVisibility(View.GONE);
+            holder.lhProductList.setBackgroundColor( ContextCompat.getColor(this.context,
+                    R.color.colorWhite ));
         }
     }
 
@@ -95,6 +97,7 @@ public class OrderPickAdapter extends RecyclerView.Adapter<OrderPickAdapter.View
         public TextView productListPrice;
         public TextView productListQty;
         public ImageView productListImage;
+        public LinearLayout lhProductList;
 //        public ImageButton btnDecQtyProduct;
         public LinearLayout linearLayoutProductList;
         public CardView cvProduct;
@@ -109,6 +112,7 @@ public class OrderPickAdapter extends RecyclerView.Adapter<OrderPickAdapter.View
 //            btnDecQtyProduct = (ImageButton) itemView.findViewById(R.id.btnDecQtyProduct);
             linearLayoutProductList = (LinearLayout) itemView.findViewById(R.id.linearLayoutProductList);
             cvProduct = (CardView) itemView.findViewById(R.id.cvProduct);
+            lhProductList = (LinearLayout) itemView.findViewById(R.id.lhProductList);
 
 //            btnDecQtyProduct.setOnClickListener(this);
             itemView.setOnClickListener(this);
