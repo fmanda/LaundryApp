@@ -4,17 +4,12 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Created by Martin Forejt on 28.06.2017.
- * forejt.martin97@gmail.com
- */
 
 public class BluetoothPrinter {
 

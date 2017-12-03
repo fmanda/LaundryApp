@@ -24,6 +24,9 @@ public class ModelOrder extends BaseModel implements Serializable{
     @TableField
     private Date orderdate = new Date();
     @TableField
+    private Date finishdate = new Date();
+
+    @TableField
     private Double amount = 0.0;
     @TableField
     private Double payment = 0.0;
@@ -348,6 +351,13 @@ public class ModelOrder extends BaseModel implements Serializable{
 
     }
 
+    public Date getFinishdate() {
+        return finishdate;
+    }
+
+    public void setFinishdate(Date finishdate) {
+        this.finishdate = finishdate;
+    }
 };
 
 

@@ -1,5 +1,6 @@
 package com.fma.laundryapp.facade.fragment;
 
+import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.fma.laundryapp.R;
@@ -21,11 +23,16 @@ import com.fma.laundryapp.helper.CurrencyHelper;
 import com.fma.laundryapp.helper.DBHelper;
 import com.fma.laundryapp.model.ModelOrder;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by fmanda on 08/10/17.
  */
 
-public class OrderFinishFragment extends Fragment{
+public class OrderFinishFragment extends Fragment implements DatePickerDialog.OnDateSetListener {
 
     TextView txtOrderFinishSubTotal;
     TextView txtOrderFinishPPN;
@@ -35,11 +42,14 @@ public class OrderFinishFragment extends Fragment{
 //    Button btnSaveOrder;
     Button btnPayOrder;
     Button btnHoldOrder;
+    Button btnPickDate;
 
     public ModelOrder modelOrder;
 
     RecyclerView recyclerView;
     OrderItemListAdapter orderItemListAdapter;
+    DatePickerDialog datePickerDialog;
+    DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("id", "ID"));
 
     @Nullable
     @Override
@@ -48,6 +58,10 @@ public class OrderFinishFragment extends Fragment{
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rvOrderFinish);
 
+        Calendar calendar = Calendar.getInstance(); // current time
+
+        datePickerDialog = new DatePickerDialog(
+                getActivity(), this, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
 
         txtOrderFinishSubTotal = (TextView) view.findViewById(R.id.txtOrderFinishSubTotal);
         txtOrderFinishPPN = (TextView) view.findViewById(R.id.txtOrderFinishPPN);
@@ -58,6 +72,8 @@ public class OrderFinishFragment extends Fragment{
 //        btnSaveOrder = (Button) view.findViewById(R.id.btnSaveOrder);
         btnPayOrder = (Button) view.findViewById(R.id.btnPayOrder);
         btnHoldOrder = (Button) view.findViewById(R.id.btnHoldOrder);
+        btnPickDate = (Button) view.findViewById(R.id.btnPickDate);
+
 
 
 //        btnSaveOrder.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +89,13 @@ public class OrderFinishFragment extends Fragment{
             public void onClick(View v) {
                 modelOrder.setStatus(0); //without print
                 saveData();
+            }
+        });
+
+        btnPickDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datePickerDialog.show();
             }
         });
 
@@ -104,6 +127,7 @@ public class OrderFinishFragment extends Fragment{
         txtOrderFinishPPN.setText(CurrencyHelper.format(modelOrder.getTax()));
         txtOrderFinishTotal.setText(CurrencyHelper.format(modelOrder.getSummary()));
         txtOrderNo.setText("#" + modelOrder.getOrderno());
+        btnPickDate.setText(df.format(modelOrder.getOrderdate()));
     }
 
     private void saveData(){
@@ -116,4 +140,14 @@ public class OrderFinishFragment extends Fragment{
         startActivity(new Intent(getActivity(), OrderActivity.class));
     }
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DATE, dayOfMonth);
+
+        modelOrder.setFinishdate(calendar.getTime());
+        btnPickDate.setText(df.format(modelOrder.getOrderdate()));
+    }
 }
