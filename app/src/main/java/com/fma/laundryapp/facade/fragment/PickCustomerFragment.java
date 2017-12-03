@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.fma.laundryapp.R;
@@ -32,6 +33,7 @@ public class PickCustomerFragment extends DialogFragment implements CustomerList
     CustomerListAdapter customerListAdapter;
     RecyclerView recyclerView;
     CustomerSelectListener customerSelectListener;
+    SearchView txtSearchCustomer;
 
 //    public OrderFinishFragment parent;
 
@@ -74,6 +76,20 @@ public class PickCustomerFragment extends DialogFragment implements CustomerList
 //        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(width, height);
 //        view.setLayoutParams(layoutParams);
 
+        txtSearchCustomer = (SearchView) view.findViewById(R.id.txtSearchCustomer);
+        txtSearchCustomer.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                searchCustomer(s);
+                return false;
+            }
+        });
+
         return view;
     }
 
@@ -107,5 +123,13 @@ public class PickCustomerFragment extends DialogFragment implements CustomerList
         ModelCustomer customer = customers.get(position);
         customerSelectListener.OnSelectCustomer(customer);
         dismiss();
+    }
+
+    private void searchCustomer(String customername){
+        customers.clear();
+        customers.addAll(
+                controllerCustomer.getCustomerByFilter(customername)
+        );
+        recyclerView.getAdapter().notifyDataSetChanged();
     }
 }

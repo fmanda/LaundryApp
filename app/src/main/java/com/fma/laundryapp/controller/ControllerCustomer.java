@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.fma.laundryapp.helper.DBHelper;
+import com.fma.laundryapp.model.LookupProduct;
 import com.fma.laundryapp.model.ModelCustomer;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -87,5 +88,21 @@ public class ControllerCustomer {
         newNumber += String.format("%05d", icustno);
         return newNumber;
 
+    }
+
+    public List<ModelCustomer> getCustomerByFilter(String filter){
+        List<ModelCustomer> customers = new ArrayList<ModelCustomer>();
+
+        DBHelper db = DBHelper.getInstance(context);
+        SQLiteDatabase rdb = db.getReadableDatabase();
+
+        String sql = "select * from customer where name like '%" + filter +"%'";
+        Cursor cursor = rdb.rawQuery(sql, null);
+        while (cursor.moveToNext()){
+            ModelCustomer modelCustomer = new ModelCustomer();
+            modelCustomer.loadFromCursor(cursor);
+            customers.add(modelCustomer);
+        }
+        return customers;
     }
 }

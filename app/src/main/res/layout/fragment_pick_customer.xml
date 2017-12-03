@@ -44,6 +44,14 @@
 
         </LinearLayout>
 
+        <SearchView
+            android:id="@+id/txtSearchCustomer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/txtSummaryProductList"
+            android:layout_weight="0"
+            app:queryHint="Search Product .." />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvCustomers"
             android:layout_width="match_parent"
